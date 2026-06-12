@@ -7,4 +7,9 @@ export default defineConfig({
     locales: ['fr', 'en'],
     routing: { prefixDefaultLocale: false },
   },
+  vite: {
+    preview: {
+      allowedHosts: true,
+    },
+  },
 });
