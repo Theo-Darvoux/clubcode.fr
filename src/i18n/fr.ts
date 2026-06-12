@@ -137,5 +137,6 @@ export const fr = {
     tagline: 'Le club de programmation de Télécom SudParis.',
     links_title: 'Liens',
     legal: '© 2019-2026 Club Code',
+    credit: 'Développé par',
   },
 } as const;
