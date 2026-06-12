@@ -1,5 +1,5 @@
 ---
-import { ui, links, type Lang } from '../i18n/ui';
+import { ui, links, type Lang } from "../i18n/ui";
 
 interface Props {
   lang: Lang;
@@ -9,8 +9,16 @@ const { lang } = Astro.props;
 const t = ui[lang].partners;
 
 const meta = [
-  { logo: '/img/partners/telecom-sudparis.svg', url: links.tsp, logoClass: 'logo-tsp' },
-  { logo: '/img/partners/minet.svg', url: links.minet, logoClass: 'logo-minet' },
+  {
+    logo: "/img/partners/telecom-sudparis.svg",
+    url: links.tsp,
+    logoClass: "logo-tsp",
+  },
+  {
+    logo: "/img/partners/minet.svg",
+    url: links.minet,
+    logoClass: "logo-minet",
+  },
 ];
 ---
 
@@ -18,8 +26,12 @@ const meta = [
   <div class="container">
     <div class="section-head">
       <p class="section-label reveal">{t.label}</p>
-      <h2 class="section-title reveal" style="--reveal-delay: 0.08s">{t.title}</h2>
-      <p class="section-intro reveal" style="--reveal-delay: 0.16s">{t.intro}</p>
+      <h2 class="section-title reveal" style="--reveal-delay: 0.08s">
+        {t.title}
+      </h2>
+      <p class="section-intro reveal" style="--reveal-delay: 0.16s">
+        {t.intro}
+      </p>
     </div>
 
     <div class="partners" data-stagger>
@@ -44,7 +56,7 @@ const meta = [
                   href={meta[i].url}
                   target="_blank"
                   rel="noopener"
-                  aria-label={`${t.visit} — ${item.name}`}
+                  aria-label={`${t.visit} ⋅ ${item.name}`}
                 >
                   {item.url_label}
                   <span aria-hidden="true">↗</span>

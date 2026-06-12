@@ -13,7 +13,7 @@ npm run preview
 
 ## Structure
 
-- `src/i18n/ui.ts` — **tous les textes FR/EN et les liens**. C'est le seul fichier à toucher pour modifier le contenu.
+- `src/i18n/ui.ts` : **tous les textes FR/EN et les liens**. C'est le seul fichier à toucher pour modifier le contenu.
 - `src/components/` sections, composants.
 - `public/` médias statiques.
 
