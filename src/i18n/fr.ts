@@ -6,6 +6,7 @@ export const fr = {
   },
   nav: {
     club: 'Le club',
+    team: 'Équipe',
     competitions: 'Compétitions',
     services: 'Services',
     infra: 'Infrastructure',
@@ -48,8 +49,27 @@ export const fr = {
       },
     ],
   },
+  team: {
+    label: '02. L\'équipe',
+    title: 'L\'équipe du club.',
+    intro:
+      "Les membres au mandat 2026-2027 du Club Code.",
+    members: [
+      { name: 'Louka Siegel', role: 'Président' },
+      { name: 'Ozgur Oclay', role: 'Vice-Président' },
+      { name: 'Arthur Boit', role: 'Vice-Président' },
+      { name: 'Neil Perlerin', role: 'Secrétaire' },
+      { name: 'Florian Rivière', role: 'Trésorier' },
+      { name: 'Nikopol Markgraf', role: 'Vice-trésorier' },
+      { name: 'Yann Miquel-Erdmann', role: 'GATE' },
+      { name: 'Marwan Bouzelmat', role: 'Formation' },
+      { name: 'Lucas Thuries', role: 'Communication' },
+      { name: 'Nachid Raslane', role: 'Communication' },
+      { name: 'Théo Darvoux', role: 'Infrastructure' },
+    ],
+  },
   competitions: {
-    label: '02. Compétitions',
+    label: '03. Compétitions',
     title: 'Se mesurer aux meilleurs d\'Europe.',
     intro:
       "Le SWERC est la demi-finale régionale de l'ICPC, le championnat du monde de programmation par équipes. Chaque année, le Club Code sélectionne et entraîne les équipes qui représentent Télécom SudParis.",
@@ -67,7 +87,7 @@ export const fr = {
       "Une compétition de programmation, organisée sur le campus par des étudiants de première année. Les problèmes sont originaux et ouverts à tous les niveaux.",
   },
   services: {
-    label: '03. Services',
+    label: '04. Services',
     title: 'Des outils construits pour le campus.',
     intro:
       "Le club conçoit et opère des services web à destination des étudiants. Développés en interne, de la première maquette, aux tests, jusqu'à la mise en production.",
@@ -83,7 +103,7 @@ export const fr = {
       "Notre propre plateforme de compétition de programmation : des problèmes originaux, un juge automatique, et à terme des cours de programmation (compétitive ou non).",
   },
   infra: {
-    label: '04. Infrastructure',
+    label: '05. Infrastructure',
     title: 'Prochaine étape : héberger nous-mêmes.',
     intro:
       "À partir de septembre 2026, sous réserve de budget, le club veut étendre sa propre infrastructure pour opérer ses services de bout en bout de manière plus professionnelle.",
@@ -104,7 +124,7 @@ export const fr = {
     ],
   },
   partners: {
-    label: '05. Partenaires',
+    label: '06. Partenaires',
     title: 'Nos partenaires.',
     intro:
       "Le Club Code est un club de l'association loi 1901 MiNET, qui est le FAI du campus. Il est accompagné par l'école qui l'héberge et les associations du campus qui rendent nos projets possibles.",
@@ -125,7 +145,7 @@ export const fr = {
     ],
   },
   contact: {
-    label: '06. Contact',
+    label: '07. Contact',
     title: 'Nous contacter.',
     intro:
       "Une question, une idée de projet, ou envie de rejoindre le club ? Écrivez-nous, ou venez directement discuter sur le Discord.",

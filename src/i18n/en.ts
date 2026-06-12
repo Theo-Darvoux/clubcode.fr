@@ -6,6 +6,7 @@ export const en = {
   },
   nav: {
     club: 'The club',
+    team: 'Team',
     competitions: 'Competitions',
     services: 'Services',
     infra: 'Infrastructure',
@@ -48,8 +49,27 @@ export const en = {
       },
     ],
   },
+  team: {
+    label: '02. The team',
+    title: 'Club board & leads.',
+    intro:
+      'The Club Code 2026-2027 team.',
+    members: [
+      { name: 'Louka Siegel', role: 'President' },
+      { name: 'Ozgur Oclay', role: 'Vice-President' },
+      { name: 'Arthur Boit', role: 'Vice-President' },
+      { name: 'Neil Perlerin', role: 'Secretary' },
+      { name: 'Florian Rivière', role: 'Treasurer' },
+      { name: 'Nikopol Markgraf', role: 'Assistant Treasurer' },
+      { name: 'Yann Miquel-Erdmann', role: 'GATE Lead' },
+      { name: 'Marwan Bouzelmat', role: 'Training' },
+      { name: 'Lucas Thuries', role: 'Communication' },
+      { name: 'Nachid Raslane', role: 'Communication' },
+      { name: 'Théo Darvoux', role: 'Infrastructure' },
+    ],
+  },
   competitions: {
-    label: '02. Competitions',
+    label: '03. Competitions',
     title: 'Competing with the best in Europe.',
     intro:
       'SWERC is the regional semifinal of the ICPC, the world championship of team programming. Every year, Club Code selects and trains the teams representing Télécom SudParis.',
@@ -67,7 +87,7 @@ export const en = {
       'A programming competition, organized on campus by first-year students. The problems are original and open to all levels.',
   },
   services: {
-    label: '03. Services',
+    label: '04. Services',
     title: 'Tools built for the campus.',
     intro:
       'The club designs and operates web services for students. Developed in-house, from the first mockup to production.',
@@ -83,7 +103,7 @@ export const en = {
       'Our own competitive programming platform: original problems, an automatic judge, and eventually programming courses (competitive or not).',
   },
   infra: {
-    label: '04. Infrastructure',
+    label: '05. Infrastructure',
     title: 'Next step: hosting it ourselves.',
     intro:
       'From September 2026, budget permitting, the club wants to expand its own infrastructure to operate its services end-to-end in a more professional way.',
@@ -104,7 +124,7 @@ export const en = {
     ],
   },
   partners: {
-    label: '05. Partners',
+    label: '06. Partners',
     title: 'Our partners.',
     intro:
       'Club Code is a club of the association loi 1901 MiNET, which is the campus ISP. It is supported by the school that hosts it and the campus associations that make our projects possible.',
@@ -125,7 +145,7 @@ export const en = {
     ],
   },
   contact: {
-    label: '06. Contact',
+    label: '07. Contact',
     title: 'Get in touch.',
     intro:
       'A question, a project idea, or want to join the club? Write to us, or come chat directly on the Discord.',

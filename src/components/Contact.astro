@@ -1,5 +1,5 @@
 ---
-import { ui, links, type Lang } from '../i18n/ui';
+import { ui, links, type Lang } from "../i18n/ui";
 
 interface Props {
   lang: Lang;
@@ -10,11 +10,19 @@ const t = ui[lang].contact;
 ---
 
 <section class="section" id="contact">
+  <div class="section-bg" aria-hidden="true">
+    <span class="corner tr"></span>
+    <span class="corner bl"></span>
+  </div>
   <div class="container">
     <div class="section-head">
       <p class="section-label reveal">{t.label}</p>
-      <h2 class="section-title reveal" style="--reveal-delay: 0.08s">{t.title}</h2>
-      <p class="section-intro reveal" style="--reveal-delay: 0.16s">{t.intro}</p>
+      <h2 class="section-title reveal" style="--reveal-delay: 0.08s">
+        {t.title}
+      </h2>
+      <p class="section-intro reveal" style="--reveal-delay: 0.16s">
+        {t.intro}
+      </p>
     </div>
 
     <article class="panel reveal contact-panel">
@@ -37,6 +45,56 @@ const t = ui[lang].contact;
 </section>
 
 <style>
+  .section-bg {
+    --frame: clamp(1.5rem, 4vw, 3rem);
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+    background: radial-gradient(
+      ellipse 55% 60% at 42% 55%,
+      rgba(220, 183, 255, 0.06),
+      transparent 65%
+    );
+  }
+
+  .section-bg::before,
+  .section-bg::after,
+  .corner {
+    content: "";
+    position: absolute;
+    width: 26px;
+    height: 26px;
+  }
+
+  .section-bg::before {
+    top: var(--frame);
+    left: var(--frame);
+    border-top: 1px solid rgba(220, 183, 255, 0.2);
+    border-left: 1px solid rgba(220, 183, 255, 0.2);
+  }
+
+  .section-bg::after {
+    bottom: var(--frame);
+    right: var(--frame);
+    border-bottom: 1px solid rgba(220, 183, 255, 0.2);
+    border-right: 1px solid rgba(220, 183, 255, 0.2);
+  }
+
+  .corner.tr {
+    top: var(--frame);
+    right: var(--frame);
+    border-top: 1px solid rgba(220, 183, 255, 0.2);
+    border-right: 1px solid rgba(220, 183, 255, 0.2);
+  }
+
+  .corner.bl {
+    bottom: var(--frame);
+    left: var(--frame);
+    border-bottom: 1px solid rgba(220, 183, 255, 0.2);
+    border-left: 1px solid rgba(220, 183, 255, 0.2);
+  }
+
   .contact-panel {
     max-width: 46rem;
   }

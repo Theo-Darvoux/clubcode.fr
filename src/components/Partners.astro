@@ -23,6 +23,7 @@ const meta = [
 ---
 
 <section class="section" id="partenaires">
+  <div class="section-bg" aria-hidden="true"></div>
   <div class="container">
     <div class="section-head">
       <p class="section-label reveal">{t.label}</p>
@@ -71,6 +72,49 @@ const meta = [
 </section>
 
 <style>
+  .section-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+    overflow: hidden;
+  }
+
+  .section-bg::before {
+    content: '';
+    position: absolute;
+    top: 6%;
+    left: -110px;
+    width: 380px;
+    height: 380px;
+    border: 1px solid rgba(220, 183, 255, 0.09);
+    border-radius: 50%;
+    background: radial-gradient(circle at 78% 65%, rgba(220, 183, 255, 0.05), transparent 60%);
+  }
+
+  .section-bg::after {
+    content: '';
+    position: absolute;
+    top: 32%;
+    left: 70px;
+    width: 380px;
+    height: 380px;
+    border: 1px solid rgba(220, 183, 255, 0.06);
+    border-radius: 50%;
+  }
+
+  @media (max-width: 940px) {
+    .section-bg::before,
+    .section-bg::after {
+      width: 240px;
+      height: 240px;
+    }
+
+    .section-bg::after {
+      left: 30px;
+    }
+  }
+
   .partners {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

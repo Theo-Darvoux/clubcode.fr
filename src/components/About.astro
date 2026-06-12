@@ -10,6 +10,11 @@ const t = ui[lang].about;
 ---
 
 <section class="section" id="club">
+  <div class="section-bg" aria-hidden="true">
+    <span class="x" style="top: 16%; left: 6%"></span>
+    <span class="x" style="top: 66%; left: 11.5%"></span>
+    <span class="x" style="bottom: 11%; right: 7%"></span>
+  </div>
   <div class="container">
     <div class="section-head">
       <p class="section-label reveal">{t.label}</p>
@@ -34,6 +39,45 @@ const t = ui[lang].about;
 </section>
 
 <style>
+  .section-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+    overflow: hidden;
+  }
+
+  .section-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(90deg, rgba(220, 183, 255, 0.07) 0 1px, transparent 1px 88px);
+    mask-image: radial-gradient(ellipse 62% 78% at 14% 38%, black 25%, transparent 78%);
+    -webkit-mask-image: radial-gradient(ellipse 62% 78% at 14% 38%, black 25%, transparent 78%);
+  }
+
+  .section-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 42% 52% at 16% 32%, rgba(220, 183, 255, 0.06), transparent 70%);
+  }
+
+  .x {
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    background:
+      linear-gradient(rgba(220, 183, 255, 0.34), rgba(220, 183, 255, 0.34)) center / 1px 100% no-repeat,
+      linear-gradient(rgba(220, 183, 255, 0.34), rgba(220, 183, 255, 0.34)) center / 100% 1px no-repeat;
+  }
+
+  @media (max-width: 860px) {
+    .x {
+      display: none;
+    }
+  }
+
   .pillars {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

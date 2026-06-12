@@ -1,5 +1,5 @@
 ---
-import { ui, type Lang } from '../i18n/ui';
+import { ui, type Lang } from "../i18n/ui";
 
 interface Props {
   lang: Lang;
@@ -10,16 +10,32 @@ const t = ui[lang].infra;
 ---
 
 <section class="section" id="infrastructure">
+  <div class="section-bg" aria-hidden="true">
+    <svg
+      class="traces"
+      viewBox="0 0 560 360"
+      fill="none"
+      preserveAspectRatio="xMinYMax meet"
+    >
+      <path d="M0 312 H148 L196 264 H332"></path>
+      <path d="M0 240 H96 L144 192 H236 L268 160 H352"></path>
+      <path d="M40 360 V296 L88 248 V184"></path>
+      <circle cx="332" cy="264" r="3.5"></circle>
+      <circle cx="352" cy="160" r="3.5"></circle>
+      <circle cx="88" cy="184" r="3.5"></circle>
+      <circle cx="236" cy="192" r="2.5"></circle>
+    </svg>
+  </div>
   <div class="container">
     <div class="head-row">
       <div class="section-head">
         <p class="section-label reveal">{t.label}</p>
-        <h2 class="section-title reveal" style="--reveal-delay: 0.08s">{t.title}</h2>
-        <p class="section-intro reveal" style="--reveal-delay: 0.16s">{t.intro}</p>
-      </div>
-      <div class="eta reveal" style="--reveal-delay: 0.2s" aria-hidden="true">
-        <span class="eta-tick">&gt;_</span>
-        <span class="eta-date">{t.eta}</span>
+        <h2 class="section-title reveal" style="--reveal-delay: 0.08s">
+          {t.title}
+        </h2>
+        <p class="section-intro reveal" style="--reveal-delay: 0.16s">
+          {t.intro}
+        </p>
       </div>
     </div>
 
@@ -27,7 +43,7 @@ const t = ui[lang].infra;
       {
         t.items.map((item, i) => (
           <article class="item reveal">
-            <span class="item-index">{String(i + 1).padStart(2, '0')}</span>
+            <span class="item-index">{String(i + 1).padStart(2, "0")}</span>
             <div>
               <h3>{item.name}</h3>
               <p>{item.text}</p>
@@ -40,6 +56,67 @@ const t = ui[lang].infra;
 </section>
 
 <style>
+  .section-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+    overflow: hidden;
+  }
+
+  .section-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        circle at 8% 14%,
+        rgba(220, 183, 255, 0.05),
+        transparent 50%
+      ),
+      radial-gradient(rgba(220, 183, 255, 0.07) 1.5px, transparent 1.5px) 0 0 /
+        24px 24px;
+    mask-image:
+      linear-gradient(
+        to bottom,
+        transparent,
+        black 15%,
+        black 85%,
+        transparent
+      ),
+      radial-gradient(ellipse 70% 80% at 12% 32%, black 30%, transparent 80%);
+    -webkit-mask-image:
+      linear-gradient(
+        to bottom,
+        transparent,
+        black 15%,
+        black 85%,
+        transparent
+      ),
+      radial-gradient(ellipse 70% 80% at 12% 32%, black 30%, transparent 80%);
+    mask-composite: intersect;
+    -webkit-mask-composite: source-in;
+  }
+
+  .traces {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: clamp(280px, 32vw, 560px);
+    height: auto;
+    mask-image: linear-gradient(120deg, black 55%, transparent 95%);
+    -webkit-mask-image: linear-gradient(120deg, black 55%, transparent 95%);
+  }
+
+  .traces path {
+    stroke: rgba(220, 183, 255, 0.12);
+    stroke-width: 1;
+  }
+
+  .traces circle {
+    fill: rgba(220, 183, 255, 0.28);
+  }
+
   .head-row {
     display: flex;
     justify-content: space-between;
@@ -47,33 +124,6 @@ const t = ui[lang].infra;
     gap: 2rem;
   }
 
-  .eta {
-    font-family: var(--font-mono);
-    display: grid;
-    gap: 0.4rem;
-    text-align: right;
-    flex-shrink: 0;
-    padding-top: 0.4rem;
-  }
-
-  .eta-tick {
-    color: var(--lav);
-    font-size: 1.1rem;
-    animation: blink 1.4s steps(1) infinite;
-  }
-
-  .eta-date {
-    font-size: 0.82rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--ink-dim);
-  }
-
-  @keyframes blink {
-    50% {
-      opacity: 0.25;
-    }
-  }
 
   .items {
     display: grid;
@@ -127,9 +177,6 @@ const t = ui[lang].infra;
       flex-direction: column;
     }
 
-    .eta {
-      text-align: left;
-    }
 
     .items {
       grid-template-columns: 1fr;

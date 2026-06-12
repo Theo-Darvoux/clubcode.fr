@@ -10,6 +10,7 @@ const t = ui[lang].services;
 ---
 
 <section class="section" id="services">
+  <div class="section-bg" aria-hidden="true"></div>
   <div class="container">
     <div class="section-head">
       <p class="section-label reveal">{t.label}</p>
@@ -97,6 +98,27 @@ const t = ui[lang].services;
 </section>
 
 <style>
+  .section-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+    overflow: hidden;
+    background: radial-gradient(circle at 10% 18%, rgba(220, 183, 255, 0.05), transparent 55%);
+  }
+
+  .section-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(rgba(220, 183, 255, 0.045) 1px, transparent 1px) 0 0 / 64px 64px,
+      linear-gradient(90deg, rgba(220, 183, 255, 0.045) 1px, transparent 1px) 0 0 / 64px 64px;
+    mask-image: radial-gradient(ellipse 75% 85% at 28% 45%, black 15%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 75% 85% at 28% 45%, black 15%, transparent 80%);
+  }
+
+
   .featured {
     margin-bottom: 1.2rem;
   }
@@ -223,9 +245,6 @@ const t = ui[lang].services;
   }
   .w70 {
     width: 70%;
-  }
-  .w80 {
-    width: 80%;
   }
 
   .ind {

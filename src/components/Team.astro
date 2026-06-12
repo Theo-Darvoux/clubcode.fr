@@ -1,0 +1,111 @@
+---
+import { ui, type Lang } from "../i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang].team;
+---
+
+<section class="section" id="team">
+  <div class="section-bg" aria-hidden="true"></div>
+  <div class="container">
+    <div class="section-head">
+      <p class="section-label reveal">{t.label}</p>
+      <h2 class="section-title reveal" style="--reveal-delay: 0.08s">
+        {t.title}
+      </h2>
+      <p class="section-intro reveal" style="--reveal-delay: 0.16s">
+        {t.intro}
+      </p>
+    </div>
+
+    <div class="team-grid" data-stagger>
+      {
+        t.members.map((m) => (
+          <article class="panel reveal">
+            <div class="panel-inner member">
+              <span class="member-role">{m.role}</span>
+              <span class="member-name">{m.name}</span>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+    overflow: hidden;
+  }
+
+  .section-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        circle at 10% 62%,
+        rgba(220, 183, 255, 0.04),
+        transparent 20%
+      ),
+      repeating-radial-gradient(
+        circle at 10% 62%,
+        rgba(220, 183, 255, 0.04) 0 1px,
+        transparent 1px 110px
+      );
+    mask-image: radial-gradient(circle at 10% 62%, black 18%, transparent 52%);
+    -webkit-mask-image: radial-gradient(
+      circle at 10% 62%,
+      black 18%,
+      transparent 52%
+    );
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .member {
+    display: grid;
+    gap: 0.3rem;
+    align-content: center;
+    padding: clamp(1rem, 2vw, 1.4rem) clamp(1.2rem, 2.4vw, 1.6rem);
+  }
+
+  .member-role {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--lav-soft);
+  }
+
+  .member-name {
+    font-size: 1.15rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  @media (max-width: 960px) {
+    .team-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .team-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

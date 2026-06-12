@@ -118,10 +118,6 @@ const jsonLd = JSON.stringify({
         },
         { passive: true },
       );
-
-      // Cloudflare's email obfuscation is only decoded by its injected
-      // script on a full page load; after a ClientRouter swap the encoded
-      // placeholders ("[email protected]") survive, so decode them ourselves.
       const decodeCfEmail = (hex: string) => {
         const key = parseInt(hex.slice(0, 2), 16);
         let out = "";
@@ -174,6 +170,7 @@ const jsonLd = JSON.stringify({
         ghosts = [];
         for (const id of [
           "club",
+          "team",
           "competitions",
           "services",
           "infrastructure",

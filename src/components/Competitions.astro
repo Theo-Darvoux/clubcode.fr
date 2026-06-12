@@ -1,5 +1,5 @@
 ---
-import { ui, type Lang } from '../i18n/ui';
+import { ui, type Lang } from "../i18n/ui";
 
 interface Props {
   lang: Lang;
@@ -10,11 +10,16 @@ const t = ui[lang].competitions;
 ---
 
 <section class="section" id="competitions">
+  <div class="section-bg" aria-hidden="true"></div>
   <div class="container">
     <div class="section-head">
       <p class="section-label reveal">{t.label}</p>
-      <h2 class="section-title reveal" style="--reveal-delay: 0.08s">{t.title}</h2>
-      <p class="section-intro reveal" style="--reveal-delay: 0.16s">{t.intro}</p>
+      <h2 class="section-title reveal" style="--reveal-delay: 0.08s">
+        {t.title}
+      </h2>
+      <p class="section-intro reveal" style="--reveal-delay: 0.16s">
+        {t.intro}
+      </p>
     </div>
 
     <p class="edition reveal">{t.edition}</p>
@@ -26,7 +31,8 @@ const t = ui[lang].competitions;
             <div class="panel-inner team">
               <span class="team-name">{team.name}</span>
               <span class="team-rank" data-count>
-                {team.rank}<sup>{team.suffix}</sup>
+                {team.rank}
+                <sup>{team.suffix}</sup>
               </span>
               <span class="team-detail">{team.detail}</span>
             </div>
@@ -53,6 +59,62 @@ const t = ui[lang].competitions;
 </section>
 
 <style>
+  .section-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+    overflow: hidden;
+    background: radial-gradient(
+      ellipse 55% 40% at 50% 88%,
+      rgba(220, 183, 255, 0.05),
+      transparent 70%
+    );
+  }
+
+  .section-bg::before {
+    content: "";
+    position: absolute;
+    top: 6%;
+    bottom: 6%;
+    left: 5%;
+    width: 16px;
+    border-left: 1px solid rgba(220, 183, 255, 0.16);
+    background:
+      repeating-linear-gradient(
+          to bottom,
+          rgba(220, 183, 255, 0.16) 0 1px,
+          transparent 1px 26px
+        )
+        left top / 8px 100% no-repeat,
+      repeating-linear-gradient(
+          to bottom,
+          rgba(220, 183, 255, 0.24) 0 1px,
+          transparent 1px 130px
+        )
+        left top / 16px 100% no-repeat;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black 12%,
+      black 88%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black 12%,
+      black 88%,
+      transparent
+    );
+  }
+
+  @media (max-width: 860px) {
+    .section-bg::before {
+      display: none;
+    }
+  }
+
   .edition {
     font-family: var(--font-mono);
     font-size: 0.78rem;
