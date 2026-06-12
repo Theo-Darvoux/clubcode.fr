@@ -1,0 +1,152 @@
+---
+import { ui, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang].competitions;
+---
+
+<section class="section" id="competitions">
+  <div class="container">
+    <div class="section-head">
+      <p class="section-label reveal">{t.label}</p>
+      <h2 class="section-title reveal" style="--reveal-delay: 0.08s">{t.title}</h2>
+      <p class="section-intro reveal" style="--reveal-delay: 0.16s">{t.intro}</p>
+    </div>
+
+    <p class="edition reveal">{t.edition}</p>
+
+    <div class="teams" data-stagger>
+      {
+        t.teams.map((team) => (
+          <article class="panel reveal">
+            <div class="panel-inner team">
+              <span class="team-name">{team.name}</span>
+              <span class="team-rank" data-count>
+                {team.rank}<sup>{team.suffix}</sup>
+              </span>
+              <span class="team-detail">{team.detail}</span>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="below">
+      <aside class="note reveal">
+        <h3>{t.note_title}</h3>
+        <p>{t.note}</p>
+      </aside>
+
+      <article class="panel reveal" style="--reveal-delay: 0.12s">
+        <div class="panel-inner cc">
+          <p class="cc-label">{t.cc_label}</p>
+          <h3>{t.cc_title}</h3>
+          <p class="cc-text">{t.cc_text}</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .edition {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 1.2rem;
+  }
+
+  .teams {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .team {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .team-name {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--lav);
+  }
+
+  .team-rank {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.6rem, 4.5vw, 3.6rem);
+    line-height: 1;
+  }
+
+  .team-rank sup {
+    font-size: 0.4em;
+    color: var(--ink-soft);
+  }
+
+  .team-detail {
+    font-size: 0.9rem;
+    color: var(--ink-dim);
+  }
+
+  .below {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    align-items: stretch;
+  }
+
+  .note {
+    border-left: 2px solid var(--lav-25);
+    padding: 0.4rem 0 0.4rem 1.6rem;
+    align-self: center;
+  }
+
+  .note h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .note p {
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+  }
+
+  .cc {
+    display: grid;
+    gap: 0.7rem;
+    align-content: center;
+  }
+
+  .cc-label {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--lav-soft);
+  }
+
+  .cc h3 {
+    font-size: 1.4rem;
+  }
+
+  .cc-text {
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+  }
+
+  @media (max-width: 860px) {
+    .teams,
+    .below {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

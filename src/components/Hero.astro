@@ -1,0 +1,240 @@
+---
+import { ui, links, type Lang } from "../i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang].hero;
+---
+
+<section class="hero" id="hero">
+  <div class="hero-grid" aria-hidden="true"></div>
+
+  <div class="container hero-content">
+    <div class="hero-mark" aria-hidden="true">
+      <img
+        class="reveal"
+        style="--reveal-delay: 0.4s"
+        src="/img/mark.svg"
+        alt=""
+        width="467"
+        height="265"
+      />
+    </div>
+    <p class="overline reveal">{t.overline}</p>
+    <h1 class="reveal" style="--reveal-delay: 0.1s">
+      {t.title_pre}<span class="accent">{t.title_accent}</span>{t.title_post}
+    </h1>
+    <p class="sub reveal" style="--reveal-delay: 0.2s">{t.sub}</p>
+    <div class="ctas reveal" style="--reveal-delay: 0.3s">
+      <a
+        class="btn btn-primary"
+        href={links.discord}
+        target="_blank"
+        rel="noopener"
+      >
+        {t.cta_primary}
+      </a>
+      <a class="btn btn-ghost" href="#club">
+        {t.cta_secondary}
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path d="M6 1v10M2 7l4 4 4-4" stroke="currentColor" stroke-width="1.5"
+          ></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="container stats reveal" style="--reveal-delay: 0.45s">
+    {
+      t.stats.map((s, i) => (
+        <div class="stat">
+          <span class="stat-value" data-count={i > 0 || undefined}>
+            {s.value}
+          </span>
+          <span class="stat-label">{s.label}</span>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    padding-top: 4.4rem;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        ellipse 52% 42% at 74% 26%,
+        rgba(220, 183, 255, 0.06),
+        transparent 70%
+      ),
+      radial-gradient(
+        ellipse 38% 30% at 12% 85%,
+        rgba(220, 183, 255, 0.03),
+        transparent 70%
+      );
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(
+      circle,
+      var(--lav-08) 1px,
+      transparent 1px
+    );
+    background-size: 30px 30px;
+    mask-image: radial-gradient(
+      ellipse 75% 65% at 70% 40%,
+      black 10%,
+      transparent 70%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 75% 65% at 70% 40%,
+      black 10%,
+      transparent 70%
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    padding-block: 5rem 3rem;
+  }
+
+  .hero-mark {
+    position: absolute;
+    inset-block: 0;
+    right: clamp(1rem, 5vw, 4.5rem);
+    display: grid;
+    align-content: center;
+    pointer-events: none;
+  }
+
+  .hero-mark img {
+    width: clamp(16rem, 24vw, 23rem);
+    height: auto;
+    filter: drop-shadow(0 18px 70px rgba(220, 183, 255, 0.22));
+  }
+
+  @media (max-width: 1100px) {
+    .hero-mark {
+      display: none;
+    }
+  }
+
+  .overline {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--lav-soft);
+    margin-bottom: 1.6rem;
+  }
+
+  h1 {
+    font-size: clamp(2.6rem, 6.4vw, 5rem);
+    max-width: 15ch;
+    margin-bottom: 1.6rem;
+  }
+
+  .sub {
+    font-size: clamp(1.05rem, 1.6vw, 1.22rem);
+    color: var(--ink-soft);
+    max-width: 36rem;
+    margin-bottom: 2.6rem;
+  }
+
+  .ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .stats {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    border-top: 1px solid var(--line-soft);
+    padding-block: 2rem 3rem;
+  }
+
+  .stat {
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .stat-value {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    color: var(--lav);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
+  @media (max-width: 720px) {
+    .stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+<script>
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let content: HTMLElement | null = null;
+  let ticking = false;
+
+  const update = () => {
+    ticking = false;
+    if (!content) return;
+    const k = Math.min(Math.max(scrollY / (innerHeight * 0.75), 0), 1);
+    content.style.opacity = String(1 - k * 0.95);
+    content.style.transform = `translateY(${(-36 * k).toFixed(1)}px)`;
+  };
+  addEventListener(
+    "scroll",
+    () => {
+      if (content && !ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    },
+    { passive: true },
+  );
+
+  document.addEventListener("astro:page-load", () => {
+    content = reduced
+      ? null
+      : document.querySelector<HTMLElement>(".hero-content");
+    if (content) update();
+  });
+</script>

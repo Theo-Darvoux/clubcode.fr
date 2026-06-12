@@ -1,0 +1,312 @@
+---
+import { ui, type Lang } from "../i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang].services;
+---
+
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-head">
+      <p class="section-label reveal">{t.label}</p>
+      <h2 class="section-title reveal" style="--reveal-delay: 0.08s">
+        {t.title}
+      </h2>
+      <p class="section-intro reveal" style="--reveal-delay: 0.16s">
+        {t.intro}
+      </p>
+    </div>
+
+    <article class="panel featured reveal">
+      <div class="panel-inner featured-inner">
+        <div class="featured-copy">
+          <span class="badge badge-new">{t.intellect_badge}</span>
+          <h3>{t.intellect_name}</h3>
+          <p class="muted">{t.intellect_text}</p>
+          <a
+            class="btn btn-primary"
+            href={t.intellect_url}
+            target="_blank"
+            rel="noopener"
+          >
+            {t.intellect_cta}
+            <svg
+              width="11"
+              height="11"
+              viewBox="0 0 11 11"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M1 10 10 1M3 1h7v7"
+                stroke="currentColor"
+                stroke-width="1.5"></path>
+            </svg>
+          </a>
+        </div>
+
+        <div class="mock" aria-hidden="true">
+          <div class="mock-bar">
+            <span class="mock-dot"></span>
+            <span class="mock-dot"></span>
+            <span class="mock-dot"></span>
+            <span class="mock-url">intellect.clubcode.fr</span>
+          </div>
+          <div class="mock-body">
+            <div class="mock-side">
+              <span class="mock-line w70"></span>
+              <span class="mock-line w50 ind"></span>
+              <span class="mock-line w60 ind"></span>
+              <span class="mock-line w40 ind2"></span>
+              <span class="mock-line w50 ind2"></span>
+              <span class="mock-line w60 ind"></span>
+              <span class="mock-line w40 ind2"></span>
+            </div>
+            <div class="mock-main">
+              <div class="mock-hello">
+                <span class="mock-line w40 tall"></span>
+                <span class="mock-line w60"></span>
+              </div>
+              <span class="mock-line w30"></span>
+              <div class="mock-cards">
+                <span class="mock-card c1"></span>
+                <span class="mock-card c2"></span>
+                <span class="mock-card c3"></span>
+                <span class="mock-card c4"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="panel next reveal" style="--reveal-delay: 0.12s">
+      <div class="panel-inner next-inner">
+        <div>
+          <span class="badge badge-soon">{t.next_badge}</span>
+          <h3>{t.next_name}</h3>
+        </div>
+        <p class="muted">{t.next_text}</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<style>
+  .featured {
+    margin-bottom: 1.2rem;
+  }
+
+  .featured-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: center;
+    padding: clamp(2rem, 4vw, 3rem);
+  }
+
+  .featured-copy {
+    display: grid;
+    gap: 1.1rem;
+    justify-items: start;
+  }
+
+  .featured-copy h3,
+  .next h3 {
+    font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  }
+
+  .muted {
+    color: var(--ink-soft);
+  }
+
+  .badge {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.8rem;
+    clip-path: polygon(
+      0 0,
+      calc(100% - 7px) 0,
+      100% 7px,
+      100% 100%,
+      7px 100%,
+      0 calc(100% - 7px)
+    );
+  }
+
+  .badge-new {
+    background: var(--lav);
+    color: #150f22;
+  }
+
+  .badge-soon {
+    background: var(--lav-08);
+    color: var(--lav-soft);
+    box-shadow: inset 0 0 0 1px var(--lav-14);
+  }
+
+  .mock {
+    border: 1px solid var(--line);
+    background: var(--bg);
+    overflow: hidden;
+  }
+
+  .mock-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .mock-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--lav-14);
+  }
+
+  .mock-url {
+    margin-left: 0.8rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-dim);
+    background: var(--lav-08);
+    padding: 0.2rem 0.9rem;
+    border-radius: 99px;
+  }
+
+  .mock-body {
+    display: grid;
+    grid-template-columns: 1fr 2.6fr;
+    gap: 1rem;
+    padding: 1.1rem;
+    min-height: 230px;
+  }
+
+  .mock-side {
+    display: grid;
+    gap: 0.7rem;
+    align-content: start;
+    border-right: 1px solid var(--line-soft);
+    padding-right: 1rem;
+  }
+
+  .mock-line {
+    height: 8px;
+    background: var(--lav-14);
+    border-radius: 2px;
+  }
+
+  .mock-line.tall {
+    height: 12px;
+    background: var(--lav-25);
+  }
+
+  .w30 {
+    width: 30%;
+  }
+  .w40 {
+    width: 40%;
+  }
+  .w50 {
+    width: 50%;
+  }
+  .w60 {
+    width: 60%;
+  }
+  .w70 {
+    width: 70%;
+  }
+  .w80 {
+    width: 80%;
+  }
+
+  .ind {
+    margin-left: 0.8rem;
+  }
+  .ind2 {
+    margin-left: 1.6rem;
+  }
+
+  .mock-main {
+    display: grid;
+    gap: 0.9rem;
+    align-content: start;
+  }
+
+  .mock-hello {
+    display: grid;
+    gap: 0.55rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--line-soft);
+    background: linear-gradient(120deg, var(--lav-08), transparent 60%);
+  }
+
+  .mock-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.7rem;
+  }
+
+  .mock-card {
+    --tint: var(--lav-14);
+    height: 82px;
+    border: 1px solid var(--line-soft);
+    display: grid;
+    grid-template-rows: 1fr auto;
+  }
+
+  .mock-card::before {
+    content: "";
+    background: linear-gradient(135deg, var(--tint), transparent 80%);
+  }
+
+  .mock-card::after {
+    content: "";
+    height: 6px;
+    width: 62%;
+    margin: 0.5rem;
+    border-radius: 2px;
+    background: var(--lav-14);
+  }
+
+  .c1 {
+    --tint: rgba(232, 196, 120, 0.2);
+  }
+  .c2 {
+    --tint: rgba(122, 162, 247, 0.2);
+  }
+  .c3 {
+    --tint: rgba(247, 118, 142, 0.2);
+  }
+  .c4 {
+    --tint: rgba(220, 183, 255, 0.22);
+  }
+
+  .next-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .next-inner > div {
+    display: grid;
+    gap: 0.9rem;
+    justify-items: start;
+  }
+
+  @media (max-width: 860px) {
+    .featured-inner,
+    .next-inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

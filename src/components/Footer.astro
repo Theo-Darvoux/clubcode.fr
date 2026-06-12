@@ -1,0 +1,97 @@
+---
+import { ui, links, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang].footer;
+---
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <img src="/img/logo.svg" alt="Club Code" width="232" height="66" />
+      <p>{t.tagline}</p>
+    </div>
+    <nav class="footer-links" aria-label={t.links_title}>
+      <span class="footer-links-title">{t.links_title}</span>
+      <a href={links.discord} target="_blank" rel="noopener">Discord</a>
+      <a href={links.github} target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+  <div class="container footer-legal">
+    <span>{t.legal}</span>
+    <span class="footer-mono">&lt;/&gt;</span>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--line-soft);
+    padding-block: 4rem 2rem;
+  }
+
+  .footer-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+    flex-wrap: wrap;
+    padding-bottom: 3rem;
+  }
+
+  .footer-brand img {
+    width: 200px;
+    height: auto;
+    margin-bottom: 1.2rem;
+  }
+
+  .footer-brand p {
+    color: var(--ink-dim);
+    font-size: 0.95rem;
+    max-width: 22rem;
+  }
+
+  .footer-links {
+    display: grid;
+    gap: 0.65rem;
+    align-content: start;
+  }
+
+  .footer-links-title {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--lav-soft);
+    margin-bottom: 0.4rem;
+  }
+
+  .footer-links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.25s var(--ease-out);
+    width: fit-content;
+  }
+
+  .footer-links a:hover {
+    color: var(--lav);
+  }
+
+  .footer-legal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--line-soft);
+    padding-top: 1.6rem;
+    color: var(--ink-dim);
+    font-size: 0.85rem;
+  }
+
+  .footer-mono {
+    font-family: var(--font-mono);
+    color: var(--lav-soft);
+  }
+</style>

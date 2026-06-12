@@ -1,0 +1,147 @@
+---
+import { ui, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang].infra;
+---
+
+<section class="section" id="infrastructure">
+  <div class="container">
+    <div class="head-row">
+      <div class="section-head">
+        <p class="section-label reveal">{t.label}</p>
+        <h2 class="section-title reveal" style="--reveal-delay: 0.08s">{t.title}</h2>
+        <p class="section-intro reveal" style="--reveal-delay: 0.16s">{t.intro}</p>
+      </div>
+      <div class="eta reveal" style="--reveal-delay: 0.2s" aria-hidden="true">
+        <span class="eta-tick">&gt;_</span>
+        <span class="eta-date">{t.eta}</span>
+      </div>
+    </div>
+
+    <div class="items" data-stagger>
+      {
+        t.items.map((item, i) => (
+          <article class="item reveal">
+            <span class="item-index">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{item.name}</h3>
+              <p>{item.text}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .head-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  .eta {
+    font-family: var(--font-mono);
+    display: grid;
+    gap: 0.4rem;
+    text-align: right;
+    flex-shrink: 0;
+    padding-top: 0.4rem;
+  }
+
+  .eta-tick {
+    color: var(--lav);
+    font-size: 1.1rem;
+    animation: blink 1.4s steps(1) infinite;
+  }
+
+  .eta-date {
+    font-size: 0.82rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0.25;
+    }
+  }
+
+  .items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line-soft);
+  }
+
+  .item {
+    display: flex;
+    gap: 1.4rem;
+    padding: 2rem 1.5rem 2rem 0;
+    border-bottom: 1px solid var(--line-soft);
+    transition: background 0.35s var(--ease-out);
+  }
+
+  .item:hover {
+    background: linear-gradient(90deg, var(--lav-08), transparent 75%);
+  }
+
+  .item:nth-child(odd) {
+    border-right: 1px solid var(--line-soft);
+    padding-left: 0;
+    padding-right: 2rem;
+  }
+
+  .item:nth-child(even) {
+    padding-left: 2rem;
+  }
+
+  .item-index {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--lav-soft);
+    letter-spacing: 0.15em;
+    padding-top: 0.35rem;
+  }
+
+  .item h3 {
+    font-size: 1.18rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .item p {
+    color: var(--ink-soft);
+    font-size: 0.96rem;
+  }
+
+  @media (max-width: 860px) {
+    .head-row {
+      flex-direction: column;
+    }
+
+    .eta {
+      text-align: left;
+    }
+
+    .items {
+      grid-template-columns: 1fr;
+    }
+
+    .item:nth-child(odd) {
+      border-right: none;
+      padding-right: 0;
+    }
+
+    .item:nth-child(even) {
+      padding-left: 0;
+    }
+  }
+</style>

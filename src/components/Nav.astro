@@ -1,0 +1,189 @@
+---
+import { ui, links, type Lang } from "../i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang].nav;
+const base = lang === "fr" ? "/" : "/en/";
+
+const items = [
+  { href: "#club", label: t.club },
+  { href: "#competitions", label: t.competitions },
+  { href: "#services", label: t.services },
+  { href: "#infrastructure", label: t.infra },
+  { href: "#partenaires", label: t.partners },
+];
+---
+
+<header class="nav" id="nav">
+  <div class="container nav-row">
+    <a class="brand" href={base} aria-label="Club Code">
+      <img src="/img/mark.svg" alt="" width="44" height="25" />
+      <span class="brand-name">Club Code</span>
+    </a>
+
+    <nav class="links" aria-label="Navigation">
+      {items.map((item) => <a href={base + item.href}>{item.label}</a>)}
+    </nav>
+
+    <div class="actions">
+      <a
+        class="lang"
+        data-lang-switch
+        href={lang === "fr" ? "/en/" : "/"}
+        aria-label={lang === "fr" ? "Switch to English" : "Passer en français"}
+      >
+        {lang === "fr" ? "EN" : "FR"}
+      </a>
+      <a
+        class="btn btn-ghost btn-nav"
+        href={links.discord}
+        target="_blank"
+        rel="noopener"
+      >
+        {t.discord}
+      </a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: 50;
+    transition:
+      background 0.4s var(--ease-out),
+      border-color 0.4s var(--ease-out);
+    border-bottom: 1px solid transparent;
+  }
+
+  .nav.is-scrolled {
+    background: var(--bg-overlay);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom-color: var(--line-soft);
+  }
+
+  .nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    height: 4.4rem;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+  }
+
+  .brand-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.02rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .links {
+    display: flex;
+    gap: 1.9rem;
+  }
+
+  .links a {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color 0.25s var(--ease-out);
+  }
+
+  .links a:hover {
+    color: var(--lav);
+  }
+
+  .links a.is-active {
+    color: var(--ink);
+    padding-bottom: 2px;
+    background: linear-gradient(var(--lav), var(--lav)) left bottom / 100% 1px
+      no-repeat;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .lang {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-dim);
+    text-decoration: none;
+    transition: color 0.25s var(--ease-out);
+  }
+
+  .lang:hover {
+    color: var(--lav);
+  }
+
+  .btn-nav {
+    padding: 0.5rem 1.1rem;
+    font-size: 0.88rem;
+  }
+
+  @media (max-width: 860px) {
+    .links {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  let nav: HTMLElement | null = null;
+  const onScroll = () =>
+    nav?.classList.toggle("is-scrolled", window.scrollY > 24);
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  let spy: IntersectionObserver | undefined;
+
+  const init = () => {
+    nav = document.getElementById("nav");
+    onScroll();
+
+    spy?.disconnect();
+    const linkEls = [
+      ...document.querySelectorAll<HTMLAnchorElement>(".links a"),
+    ];
+    const sections = new Map<Element, HTMLAnchorElement | null>();
+    for (const a of linkEls) {
+      const target = document.getElementById(a.hash.slice(1));
+      if (target) sections.set(target, a);
+    }
+    const hero = document.getElementById("hero");
+    if (hero) sections.set(hero, null);
+
+    spy = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const active = sections.get(entry.target) ?? null;
+          for (const a of linkEls)
+            a.classList.toggle("is-active", a === active);
+        }
+      },
+      { rootMargin: "-40% 0px -55% 0px" },
+    );
+    sections.forEach((_, section) => spy!.observe(section));
+  };
+
+  document.addEventListener("astro:page-load", init);
+</script>

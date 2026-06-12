@@ -1,0 +1,226 @@
+---
+import { ClientRouter } from "astro:transitions";
+import "../styles/global.css";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { ui, type Lang } from "../i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang];
+const altLang = lang === "fr" ? "en" : "fr";
+const altPath = lang === "fr" ? "/en/" : "/";
+---
+
+<!doctype html>
+<html lang={lang} transition:animate="none">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{t.meta.title}</title>
+    <meta name="description" content={t.meta.description} />
+    <link rel="icon" type="image/svg+xml" href="/img/mark.svg" />
+    <link rel="apple-touch-icon" href="/img/icon-180.png" />
+    <link
+      rel="alternate"
+      hreflang={altLang}
+      href={new URL(altPath, Astro.site)}
+    />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <meta property="og:title" content={t.meta.title} />
+    <meta property="og:description" content={t.meta.description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={new URL("/img/og.png", Astro.site)} />
+    <meta name="theme-color" content="#08080d" />
+    <ClientRouter />
+    <link
+      rel="preload"
+      href="/fonts/clash-display-600.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/satoshi-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+  </head>
+  <body>
+    <Nav lang={lang} />
+    <main>
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <div class="grain" aria-hidden="true"></div>
+
+    <script>
+      import type { TransitionBeforeSwapEvent } from "astro:transitions/client";
+
+      const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      let io: IntersectionObserver | undefined;
+      let cio: IntersectionObserver | undefined;
+
+      let ghosts: { el: HTMLElement; section: HTMLElement }[] = [];
+      let ghostTick = false;
+      const drift = () => {
+        ghostTick = false;
+        for (const g of ghosts) {
+          const r = g.section.getBoundingClientRect();
+          const d = r.top + r.height / 2 - innerHeight / 2;
+          g.el.style.transform = `translateY(${(d * 0.12).toFixed(1)}px)`;
+        }
+      };
+      addEventListener(
+        "scroll",
+        () => {
+          if (ghosts.length && !ghostTick) {
+            ghostTick = true;
+            requestAnimationFrame(drift);
+          }
+        },
+        { passive: true },
+      );
+
+      const init = () => {
+        io?.disconnect();
+        io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                io!.unobserve(entry.target);
+              }
+            }
+          },
+          { rootMargin: "0px 0px -8% 0px", threshold: 0.1 },
+        );
+        document
+          .querySelectorAll<HTMLElement>(".reveal:not(.is-visible)")
+          .forEach((el) => io!.observe(el));
+
+        document
+          .querySelectorAll<HTMLElement>("[data-stagger]")
+          .forEach((parent) => {
+            [...parent.children].forEach((child, i) => {
+              (child as HTMLElement).style.setProperty(
+                "--reveal-delay",
+                `${i * 0.12}s`,
+              );
+            });
+          });
+
+        ghosts = [];
+        for (const id of [
+          "club",
+          "competitions",
+          "services",
+          "infrastructure",
+          "partenaires",
+        ]) {
+          const section = document.getElementById(id);
+          const num = section
+            ?.querySelector(".section-label")
+            ?.textContent?.match(/\d+/)?.[0];
+          if (!section || !num) continue;
+          const el = document.createElement("span");
+          el.className = "ghost-num";
+          el.textContent = num;
+          el.setAttribute("aria-hidden", "true");
+          section.prepend(el);
+          ghosts.push({ el, section });
+        }
+        if (ghosts.length && !reduced) drift();
+
+        cio?.disconnect();
+        const counters = document.querySelectorAll<HTMLElement>(
+          "[data-count]:not([data-counted])",
+        );
+        if (!reduced && counters.length) {
+          cio = new IntersectionObserver(
+            (entries) => {
+              for (const entry of entries) {
+                if (!entry.isIntersecting) continue;
+                cio!.unobserve(entry.target);
+                entry.target.setAttribute("data-counted", "");
+                const node = entry.target.firstChild;
+                if (!(node instanceof Text)) continue;
+                const m = (node.data ?? "").match(/\d+/);
+                if (!m) continue;
+                const end = parseInt(m[0], 10);
+                const suffix = node.data.slice((m.index ?? 0) + m[0].length);
+                const from = Math.max(0, end - Math.min(end, 60));
+                const t0 = performance.now();
+                const D = 1300;
+                const step = (now: number) => {
+                  const u = Math.min((now - t0) / D, 1);
+                  const eased = 1 - Math.pow(1 - u, 3);
+                  node.data = Math.round(from + (end - from) * eased) + suffix;
+                  if (u < 1) requestAnimationFrame(step);
+                };
+                requestAnimationFrame(step);
+              }
+            },
+            { threshold: 0.6 },
+          );
+          counters.forEach((el) => cio!.observe(el));
+        }
+      };
+
+      document.addEventListener("astro:page-load", init);
+
+      let langSwitch = false;
+      let savedScroll = 0;
+      let anchorId: string | null = null;
+      let anchorDelta = 0;
+
+      document.addEventListener("astro:before-swap", (e) => {
+        const ev = e as TransitionBeforeSwapEvent;
+        langSwitch = !!ev.sourceElement?.closest("[data-lang-switch]");
+        if (!langSwitch) return;
+
+        anchorId = null;
+        for (const section of document.querySelectorAll("main section[id]")) {
+          const top = section.getBoundingClientRect().top;
+          if (top <= 0) {
+            anchorId = section.id;
+            anchorDelta = -top;
+          }
+        }
+
+        const reveals = ev.newDocument.querySelectorAll(".reveal");
+        document.querySelectorAll(".reveal").forEach((el, i) => {
+          if (el.classList.contains("is-visible"))
+            reveals[i]?.classList.add("is-visible");
+        });
+        const counters = ev.newDocument.querySelectorAll("[data-count]");
+        document.querySelectorAll("[data-count]").forEach((el, i) => {
+          if (el.hasAttribute("data-counted"))
+            counters[i]?.setAttribute("data-counted", "");
+        });
+      });
+
+      const restoreScroll = () => {
+        let top = savedScroll;
+        const el = anchorId && document.getElementById(anchorId);
+        if (el) top = el.getBoundingClientRect().top + scrollY + anchorDelta;
+        scrollTo({ top, behavior: "instant" });
+      };
+
+      document.addEventListener("astro:after-swap", () => {
+        if (langSwitch) restoreScroll();
+      });
+      document.addEventListener("astro:page-load", () => {
+        if (!langSwitch) return;
+        langSwitch = false;
+        restoreScroll();
+      });
+    </script>
+  </body>
+</html>

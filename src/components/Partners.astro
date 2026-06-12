@@ -1,0 +1,168 @@
+---
+import { ui, links, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang].partners;
+
+const meta = [
+  { logo: '/img/partners/telecom-sudparis.svg', url: links.tsp, logoClass: 'logo-tsp' },
+  { logo: '/img/partners/minet.svg', url: links.minet, logoClass: 'logo-minet' },
+];
+---
+
+<section class="section" id="partenaires">
+  <div class="container">
+    <div class="section-head">
+      <p class="section-label reveal">{t.label}</p>
+      <h2 class="section-title reveal" style="--reveal-delay: 0.08s">{t.title}</h2>
+      <p class="section-intro reveal" style="--reveal-delay: 0.16s">{t.intro}</p>
+    </div>
+
+    <div class="partners" data-stagger>
+      {
+        t.items.map((item, i) => (
+          <article class="panel reveal">
+            <div class="panel-inner partner">
+              <div class="partner-logo">
+                <img
+                  class={meta[i].logoClass}
+                  src={meta[i].logo}
+                  alt={`Logo ${item.name}`}
+                  loading="lazy"
+                />
+              </div>
+              <div class="partner-body">
+                <p class="partner-kind">{item.kind}</p>
+                <h3 class="partner-name">{item.name}</h3>
+                <p class="partner-text">{item.text}</p>
+                <a
+                  class="partner-link"
+                  href={meta[i].url}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label={`${t.visit} — ${item.name}`}
+                >
+                  {item.url_label}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .partners {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.4rem;
+  }
+
+  .partner {
+    display: flex;
+    gap: clamp(1.4rem, 2.5vw, 2rem);
+    align-items: stretch;
+  }
+
+  .partner-logo {
+    flex-shrink: 0;
+    width: clamp(7rem, 12vw, 9rem);
+    display: grid;
+    place-items: center;
+    padding: 1.2rem;
+    background: var(--lav-08);
+    clip-path: polygon(
+      0 0,
+      calc(100% - var(--notch-sm)) 0,
+      100% var(--notch-sm),
+      100% 100%,
+      var(--notch-sm) 100%,
+      0 calc(100% - var(--notch-sm))
+    );
+  }
+
+  .logo-tsp {
+    height: clamp(6rem, 9vw, 7.5rem);
+    width: auto;
+  }
+
+  .logo-minet {
+    width: 100%;
+  }
+
+  .partner-body {
+    display: grid;
+    align-content: start;
+    gap: 0.55rem;
+  }
+
+  .partner-kind {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--lav-soft);
+  }
+
+  .partner-name {
+    font-size: 1.35rem;
+  }
+
+  .partner-text {
+    color: var(--ink-soft);
+    font-size: 0.96rem;
+  }
+
+  .partner-link {
+    justify-self: start;
+    margin-top: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    color: var(--lav);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+  }
+
+  .partner-link span {
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .partner-link:hover {
+    text-decoration: underline;
+  }
+
+  .partner-link:hover span {
+    transform: translate(2px, -2px);
+  }
+
+  @media (max-width: 940px) {
+    .partners {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .partner {
+      flex-direction: column;
+    }
+
+    .partner-logo {
+      width: 100%;
+      min-height: 7rem;
+    }
+
+    .logo-minet {
+      max-width: 12rem;
+    }
+  }
+</style>
