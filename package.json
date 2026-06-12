@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "serve": "astro preview --port 8080"
+    "serve": "astro preview --host 0.0.0.0 --port 8080"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
