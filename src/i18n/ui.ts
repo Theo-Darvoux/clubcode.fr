@@ -11,7 +11,7 @@ export const ui = {
 export const links = {
   discord: 'https://discord.clubcode.fr',
   intellect: 'https://intellect.clubcode.fr',
-  github: 'https://github.com/orgs/club-code/',
+  github: 'https://github.clubcode.fr',
   tsp: 'https://www.telecom-sudparis.eu',
   minet: 'https://minet.net',
 };
