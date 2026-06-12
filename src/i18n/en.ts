@@ -10,6 +10,7 @@ export const en = {
     services: 'Services',
     infra: 'Infrastructure',
     partners: 'Partners',
+    contact: 'Contact',
     discord: 'Discord',
   },
   hero: {
@@ -122,6 +123,15 @@ export const en = {
         url_label: 'minet.net',
       },
     ],
+  },
+  contact: {
+    label: '06. Contact',
+    title: 'Get in touch.',
+    intro:
+      'A question, a project idea, or want to join the club? Write to us, or come chat directly on the Discord.',
+    role: 'President',
+    name: 'Louka Siegel',
+    write: 'Write to',
   },
   footer: {
     tagline: 'The programming club of Télécom SudParis.',

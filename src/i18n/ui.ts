@@ -9,6 +9,7 @@ export const ui = {
 } as const;
 
 export const links = {
+  email: 'louka.siegel@telecom-sudparis.eu',
   discord: 'https://discord.clubcode.fr',
   intellect: 'https://intellect.clubcode.fr',
   github: 'https://github.clubcode.fr',

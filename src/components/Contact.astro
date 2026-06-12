@@ -1,0 +1,91 @@
+---
+import { ui, links, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang].contact;
+---
+
+<section class="section" id="contact">
+  <div class="container">
+    <div class="section-head">
+      <p class="section-label reveal">{t.label}</p>
+      <h2 class="section-title reveal" style="--reveal-delay: 0.08s">{t.title}</h2>
+      <p class="section-intro reveal" style="--reveal-delay: 0.16s">{t.intro}</p>
+    </div>
+
+    <article class="panel reveal contact-panel">
+      <div class="panel-inner contact">
+        <div class="contact-body">
+          <p class="contact-role">{t.role}</p>
+          <h3 class="contact-name">{t.name}</h3>
+        </div>
+        <a
+          class="contact-link"
+          href={`mailto:${links.email}`}
+          aria-label={`${t.write} ${t.name}`}
+        >
+          {links.email}
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<style>
+  .contact-panel {
+    max-width: 46rem;
+  }
+
+  .contact {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-body {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .contact-role {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--lav-soft);
+  }
+
+  .contact-name {
+    font-size: 1.35rem;
+  }
+
+  .contact-link {
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    letter-spacing: 0.04em;
+    color: var(--lav);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+  }
+
+  .contact-link span {
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .contact-link:hover {
+    text-decoration: underline;
+  }
+
+  .contact-link:hover span {
+    transform: translate(2px, -2px);
+  }
+</style>
