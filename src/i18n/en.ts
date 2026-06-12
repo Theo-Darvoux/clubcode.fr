@@ -23,7 +23,7 @@ export const en = {
     cta_secondary: 'Discover the club',
     stats: [
       { value: '2019', label: 'founded' },
-      { value: '11', label: 'active members' },
+      { value: '13', label: 'active members' },
       { value: '3', label: 'teams at SWERC each year' },
       { value: '75th', label: 'best SWERC 2025 ranking' },
     ],

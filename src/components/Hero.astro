@@ -154,7 +154,8 @@ const t = ui[lang].hero;
 
   h1 {
     font-size: clamp(2.6rem, 6.4vw, 5rem);
-    max-width: 15ch;
+    /* 15ch of Clash Display, in em so it doesn't re-wrap when the font swaps in */
+    max-width: 10.8em;
     margin-bottom: 1.6rem;
   }
 

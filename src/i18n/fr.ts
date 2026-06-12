@@ -23,7 +23,7 @@ export const fr = {
     cta_secondary: 'Découvrir le club',
     stats: [
       { value: '2019', label: 'année de création' },
-      { value: '11', label: 'membres actifs' },
+      { value: '13', label: 'membres actifs' },
       { value: '3', label: 'équipes au SWERC chaque année' },
       { value: '75e', label: 'meilleur classement SWERC 2025' },
     ],

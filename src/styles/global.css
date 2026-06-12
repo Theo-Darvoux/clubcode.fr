@@ -33,6 +33,59 @@
   font-display: swap;
 }
 
+/* Metric-matched fallbacks (Arial-based): keep layout stable while the web
+   fonts load, so anchor scrolling lands at the right place and CLS stays ~0.
+   Values computed from each woff2's advance widths vs Liberation Sans/Arial. */
+@font-face {
+  font-family: 'Clash Display Fallback';
+  src: local('Arial'), local('Liberation Sans'), local('Helvetica');
+  font-weight: 500;
+  size-adjust: 108.35%;
+  ascent-override: 82.14%;
+  descent-override: 23.07%;
+  line-gap-override: 8.31%;
+}
+
+@font-face {
+  font-family: 'Clash Display Fallback';
+  src: local('Arial'), local('Liberation Sans'), local('Helvetica');
+  font-weight: 600;
+  size-adjust: 111.04%;
+  ascent-override: 80.15%;
+  descent-override: 22.51%;
+  line-gap-override: 8.1%;
+}
+
+@font-face {
+  font-family: 'Satoshi Fallback';
+  src: local('Arial'), local('Liberation Sans'), local('Helvetica');
+  font-weight: 400;
+  size-adjust: 98.9%;
+  ascent-override: 102.12%;
+  descent-override: 24.27%;
+  line-gap-override: 10.11%;
+}
+
+@font-face {
+  font-family: 'Satoshi Fallback';
+  src: local('Arial'), local('Liberation Sans'), local('Helvetica');
+  font-weight: 500;
+  size-adjust: 101.71%;
+  ascent-override: 99.3%;
+  descent-override: 23.6%;
+  line-gap-override: 9.83%;
+}
+
+@font-face {
+  font-family: 'Satoshi Fallback';
+  src: local('Arial'), local('Liberation Sans'), local('Helvetica');
+  font-weight: 700;
+  size-adjust: 104.88%;
+  ascent-override: 96.3%;
+  descent-override: 22.88%;
+  line-gap-override: 9.53%;
+}
+
 :root {
   --bg: #08080d;
   --bg-raised: #0d0d15;
@@ -48,8 +101,8 @@
   --line: rgba(220, 183, 255, 0.13);
   --line-soft: rgba(244, 242, 250, 0.07);
 
-  --font-display: 'Clash Display', 'Satoshi', sans-serif;
-  --font-body: 'Satoshi', system-ui, sans-serif;
+  --font-display: 'Clash Display', 'Clash Display Fallback', sans-serif;
+  --font-body: 'Satoshi', 'Satoshi Fallback', system-ui, sans-serif;
   --font-mono: ui-monospace, 'JetBrains Mono', 'Cascadia Code', 'Fira Code', Menlo, monospace;
 
   --notch: 16px;
