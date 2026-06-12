@@ -99,7 +99,7 @@ export const fr = {
       },
       {
         name: "Terrain d'apprentissage",
-        text: "Une infrastructure réelle à administrer : la meilleure école d'ops pour les membres du club.",
+        text: "Une infrastructure réelle à administrer avec des serveurs physiques et souverains, loin du cloud.",
       },
     ],
   },

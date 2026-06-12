@@ -99,7 +99,7 @@ export const en = {
       },
       {
         name: 'A learning ground',
-        text: 'Real infrastructure to administer: the best ops school for club members.',
+        text: 'Real infrastructure to administer with physical sovereign servers, away from the cloud.',
       },
     ],
   },
