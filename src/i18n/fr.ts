@@ -65,6 +65,8 @@ export const fr = {
       { name: 'Marwan Bouzelmat', role: 'Formation' },
       { name: 'Lucas Thuries', role: 'Communication' },
       { name: 'Nachid Raslane', role: 'Communication' },
+      { name: 'Clément Fournol', role: 'Carré' },
+      { name: 'Anastasia Levillain', role: 'Relations Internes'},
       { name: 'Théo Darvoux', role: 'Infrastructure' },
     ],
   },
